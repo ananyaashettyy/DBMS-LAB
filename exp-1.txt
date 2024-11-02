@@ -1,0 +1,65 @@
+CREATE TABLE Branch (
+    Branch_No VARCHAR(10) PRIMARY KEY,
+    Bank_Name VARCHAR(50),
+    Branch_Name VARCHAR(50),
+    Assets INT
+);
+
+INSERT INTO Branch (Branch_No, Bank_Name, Branch_Name, Assets) VALUES
+('B1', 'CANARA', 'MANGALURU', 6000000),
+('B2', 'BANK OF BARODA', 'MANGALURU', 7000000),
+('B3', 'CANARA', 'KASARGOD', 5000000),
+('B4', 'SBI', 'BENGALURU', 3000000),
+('B5', 'UNION BANK', 'DELHI', 2000000);
+--------------------------------------------------------------------------
+CREATE TABLE Customer (
+    Customer_ID VARCHAR(10) PRIMARY KEY,
+    Customer_Name VARCHAR(50),
+    Age INT,
+    Address VARCHAR(100),
+    Phone VARCHAR(15)
+);
+
+INSERT INTO Customer (Customer_ID, Customer_Name, Age, Address, Phone) VALUES
+('C1', 'RAVI', 22, 'MANGALURU', '8745236258'),
+('C2', 'ASHA', 26, 'DELHI', '9974564123'),
+('C3', 'VARUN', 23, 'KASARGOD', '7895463258'),
+('C4', 'APARTHA', 22, 'MANGALURU', '9865235123'),
+('C5', 'SALIM', 23, 'BENGALORE', '7854136548');
+-------------------------------------------------------------------------
+CREATE TABLE Account (
+    Acc_No VARCHAR(10) PRIMARY KEY,
+    Branch_ID VARCHAR(10),
+    Account_Type VARCHAR(20),
+    Balance INT,
+    Customer_ID VARCHAR(10),
+    FOREIGN KEY (Branch_ID) REFERENCES Branch(Branch_No),
+    FOREIGN KEY (Customer_ID) REFERENCES Customer(Customer_ID)
+);
+
+INSERT INTO Account (Acc_No, Branch_ID, Account_Type, Balance, Customer_ID) VALUES
+('123', 'B1', 'SAVINGS', 10000, 'C1'),
+('456', 'B5', 'RECURRING', 2000, 'C2'),
+('789', 'B1', 'SAVINGS', 3000, 'C1'),
+('1122', 'B2', 'FD', 5000, 'C2'),
+('1324', 'B1', 'SAVINGS', 10000, 'C4'),
+('1234', 'B3', 'FD', 9000, 'C5'),
+('5876', 'B1', 'RECURRING', 8000, 'C3');
+
+----------------------------------------------------------------------------------------------
+CREATE TABLE Loan (
+    Loan_ID VARCHAR(10) PRIMARY KEY,
+    Branch_ID VARCHAR(10),
+    Amount INT,
+    Customer_ID VARCHAR(10),
+    FOREIGN KEY (Branch_ID) REFERENCES Branch(Branch_No),
+    FOREIGN KEY (Customer_ID) REFERENCES Customer(Customer_ID)
+);
+
+INSERT INTO Loan (Loan_ID, Branch_ID, Amount, Customer_ID) VALUES
+('L1', 'B1', 5000000, 'C1'),
+('L2', 'B2', 50000, 'C2'),
+('L3', 'B3', 40000, 'C3'),
+('L4', 'B2', 565000, 'C4'),
+('L5', 'B4', 955000, 'C5'),
+('L6', 'B5', 20000, 'C2');

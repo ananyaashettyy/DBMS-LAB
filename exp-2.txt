@@ -1,0 +1,88 @@
+CREATE TABLE Publisher (
+    Name VARCHAR(50) PRIMARY KEY,
+    Address VARCHAR(50),
+    Phone VARCHAR(15)
+);
+
+INSERT INTO Publisher (Name, Address, Phone) VALUES 
+('Pearson', 'London', '9874562224'),
+('TataMcGraw', 'New York', '9858522565'),
+('Oxford', 'UK', '9885121112'),
+('Cambridge', 'UK', '9785624615'),
+('OReilly', 'California', '9994125455');
+
+-------------------------------------------------------------------------
+CREATE TABLE Book (
+    Book_ID VARCHAR(10) PRIMARY KEY,
+    Title VARCHAR(50),
+    Publisher_Name VARCHAR(50),
+    Pub_Year INT,
+    FOREIGN KEY (Publisher_Name) REFERENCES Publisher(Name)
+);
+
+INSERT INTO Book (Book_ID, Title, Publisher_Name, Pub_Year) VALUES 
+('B101', 'DBMS', 'Pearson', 2017),
+('B102', 'AIML', 'TataMcGraw', 2009),
+('B103', 'DCN', 'Pearson', 2017),
+('B104', 'ATC', 'Oxford', 2017),
+('B105', 'Python', 'OReilly', 2014),
+('B106', 'Hadoop', 'Pearson', 2000);
+----------------------------------------------------------------------------------------------
+CREATE TABLE Book_Authors (
+    Book_ID VARCHAR(10),
+    Author_Name VARCHAR(50)
+);
+
+INSERT INTO Book_Authors (Book_ID, Author_Name) VALUES
+    ('B101', 'Elmasri'),
+    ('B101', 'Navathe'),
+    ('B101', 'Ramakrishnan'),
+    ('B102', 'Elaine'),
+    ('B105', 'Sanevasan'),
+    ('B106', 'Douglas');
+----------------------------------------------------------------------------------------------
+CREATE TABLE Library_Programme (
+    Programme_ID VARCHAR(10) PRIMARY KEY,
+    Programme_Name VARCHAR(50),
+    Address VARCHAR(50)
+);
+
+INSERT INTO Library_Programme (Programme_ID, Programme_Name, Address) VALUES
+    ('L1', 'sahyadri', 'Mangalore'),
+    ('L2', 'Sapna', 'Mangalore'),
+    ('L3', 'Sankalp', 'Bangalore'),
+    ('L4', 'Penguin', 'Chennai'),
+    ('L5', 'Agnes', 'Chennai');
+
+----------------------------------------------------------------------------------------------
+
+CREATE TABLE Book_Copies (
+    Book_ID VARCHAR(10),
+    Programme_ID VARCHAR(10),
+    No_of_Copies INT,
+    PRIMARY KEY (Book_ID, Programme_ID)
+);
+
+-- Note: Removed duplicate entry for ('B101', 'L1', 99)
+INSERT INTO Book_Copies (Book_ID, Programme_ID, No_of_Copies) VALUES
+('B101', 'L1', 99),
+('B102', 'L2', 99),
+('B103', 'L1', 99);
+----------------------------------------------------------------------------------------------
+CREATE TABLE Book_Lending (
+    Book_ID VARCHAR(10),
+    Programme_ID VARCHAR(10),
+    Card_No VARCHAR(10),
+    Date_Out DATE,
+    Due_Date DATE,
+    PRIMARY KEY (Book_ID, Programme_ID, Card_No, Date_Out)
+);
+
+INSERT INTO Book_Lending (Book_ID, Programme_ID, Card_No, Date_Out, Due_Date) VALUES
+('B101', 'L1', 'FA101', '2021-01-02', '2021-01-09'),
+('B101', 'L1', 'FA102', '2023-03-02', '2023-01-09'),
+('B102', 'L1', 'FA101', '2023-03-02', '2023-01-09'),
+('B101', 'L2', 'FA103', '2023-03-01', '2023-01-09'),
+('B101', 'L1', 'S103', '2022-04-04', '2023-01-30');
+----------------------------------------------------------------------------------------------
+

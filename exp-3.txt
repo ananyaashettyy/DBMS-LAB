@@ -1,0 +1,80 @@
+CREATE TABLE Student (
+    USN VARCHAR(10) PRIMARY KEY,
+    SName VARCHAR(50),
+    Address VARCHAR(50),
+    Phone VARCHAR(15),
+    Gender VARCHAR(10)
+);
+
+INSERT INTO Student (USN, SName, Address, Phone, Gender) VALUES 
+('4SF20CS089', 'Ajay', 'Mangalore', '7938259815', 'Male'),
+('4SF20IS109', 'Varshini', 'Bantwal', '8963293951', 'Female'),
+('4SF20CS098', 'Navish', 'Udupi', '9958285897', 'Male'),
+('4SF20CD001', 'Sahara', 'Surathkal', '8752188334', 'Female'),
+('4SF20CS088', 'Kavya', 'Mangalore', '7896531385', 'Female');
+
+----------------------------------------------------------------------------------------------
+CREATE TABLE SemSec (
+    SSID INT PRIMARY KEY,
+    Sem INT,
+    Sec CHAR(1)
+);
+
+INSERT INTO SemSec (SSID, Sem, Sec) VALUES 
+(1, 4, 'A'),
+(2, 4, 'C'),
+(3, 8, 'A'),
+(4, 8, 'B'),
+(5, 8, 'C'),
+(6, 5, 'A');
+
+----------------------------------------------------------------------------------------------
+CREATE TABLE Class (
+    SSID INT,
+    USN VARCHAR(10),
+    FOREIGN KEY (SSID) REFERENCES SemSec(SSID),
+    FOREIGN KEY (USN) REFERENCES Student(USN)
+);
+
+INSERT INTO Class (SSID, USN) VALUES 
+(1, '4SF20CD001'),
+(2, '4SF20CS088'),
+(3, '4SF20CS089'),
+(4, '4SF20IS109'),
+(5, '4SF20CS098');
+----------------------------------------------------------------------------------------------
+CREATE TABLE Course (
+    SubCode VARCHAR(10) PRIMARY KEY,
+    Title VARCHAR(50),
+    Sem INT,
+    Credits INT
+);
+
+INSERT INTO Course (SubCode, Title, Sem, Credits) VALUES 
+('20CS32', 'Data Structure', 4, 4),
+('20CS31', 'Unix', 4, 3),
+('20CS33', 'DBMS', 5, 4),
+('20CS34', 'DCN', 5, 3),
+('20CS35', 'AIML', 8, 4);
+----------------------------------------------------------------------------------------------
+CREATE TABLE Marks (
+    USN VARCHAR(10),
+    SubCode VARCHAR(10),
+    SSID INT,
+    Test1 INT,
+    Test2 INT,
+    Test3 INT,
+    FinalIA INT,
+    FOREIGN KEY (USN) REFERENCES Student(USN),
+    FOREIGN KEY (SubCode) REFERENCES Course(SubCode),
+    FOREIGN KEY (SSID) REFERENCES SemSec(SSID)
+);
+
+INSERT INTO Marks (USN, SubCode, SSID, Test1, Test2, Test3, FinalIA) VALUES 
+('4SF20CD001', '20CS32', 1, 28, 26, 29, 0),
+('4SF20CS088', '20CS31', 2, 38, 42, 32, 0),
+('4SF20CS089', '20CS33', 3, 42, 46, 41, 0),
+('4SF20CS098', '20CS34', 4, 48, 46, 50, 0),
+('4SF20IS109', '20CS35', 5, 28, 26, 29, 0);
+
+

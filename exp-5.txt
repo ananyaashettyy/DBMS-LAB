@@ -1,0 +1,75 @@
+
+CREATE TABLE Flights (
+    Flight_Num INT PRIMARY KEY,
+    Source VARCHAR(50),
+    Destination VARCHAR(50),
+    Distance INT,
+    Departure TIME,
+    Arrival TIME,
+    Price INT
+);
+
+INSERT INTO Flights VALUES (1, 'BANGALORE', 'MANGALORE', 300, '10:45', '12:00', 10000);
+INSERT INTO Flights VALUES (2, 'BANGALORE', 'DELHI', 5000, '12:15', '16:30', 25000);
+INSERT INTO Flights VALUES (3, 'BANGALORE', 'MUMBAI', 3500, '14:15', '17:25', 30000);
+INSERT INTO Flights VALUES (4, 'DELHI', 'MUMBAI', 4500, '10:15', '12:05', 35000);
+INSERT INTO Flights VALUES (5, 'DELHI', 'FRANKFURT', 18000, '07:15', '17:30', 100000);
+INSERT INTO Flights VALUES (6, 'BANGALORE', 'FRANKFURT', 19500, '10:00', '17:30', 100000);
+INSERT INTO Flights VALUES (7, 'BANGALORE', 'FRANKFURT', 17000, '12:00', '19:45', 95000);
+
+-----------------------------------------------------------------------------------------
+
+
+CREATE TABLE Aircrafts (
+    AID INT PRIMARY KEY,
+    Aircraft VARCHAR(50),
+    AName VARCHAR(50),
+    Cruising_Range INT
+);
+
+INSERT INTO Aircrafts VALUES (123, 'AIRBUS', 'A320', 1000);
+INSERT INTO Aircrafts VALUES (302, 'BOEING', '737', 5000);
+INSERT INTO Aircrafts VALUES (306, 'JETOI', 'JET600', 5000);
+INSERT INTO Aircrafts VALUES (378, 'AIRBUS380', 'A380', 8000);
+INSERT INTO Aircrafts VALUES (456, 'AIRCRAFT', 'ACME500', 500);
+INSERT INTO Aircrafts VALUES (789, 'AIRCRAFT02', 'ACME750', 800);
+INSERT INTO Aircrafts VALUES (951, 'AIRCRAFT03', 'ACME1000', 1000);
+
+-------------------------------------------------------------------------------------------
+
+
+
+CREATE TABLE Employees (
+    Emp_ID INT PRIMARY KEY,
+    EName VARCHAR(50),
+    Salary INT
+);
+
+INSERT INTO Employees VALUES (1, 'AJAY', 30000);
+INSERT INTO Employees VALUES (2, 'AJITH', 85000);
+INSERT INTO Employees VALUES (3, 'ARNAB', 50000);
+INSERT INTO Employees VALUES (4, 'HARRY', 45000);
+INSERT INTO Employees VALUES (5, 'ARUN', 90000);
+INSERT INTO Employees VALUES (6, 'JOSH', 75000);
+INSERT INTO Employees VALUES (7, 'RAM', 100000);
+
+-------------------------------------------------------------------------------------
+
+
+
+CREATE TABLE Certified (
+    Emp_ID INT,
+    AID INT,
+    PRIMARY KEY (Emp_ID, AID),
+    FOREIGN KEY (Emp_ID) REFERENCES Employees(Emp_ID),
+    FOREIGN KEY (AID) REFERENCES Aircrafts(AID)
+);
+
+INSERT INTO Certified (Emp_ID, AID) VALUES
+    (1, 123), (1, 302), (1, 306), (1, 378), (1, 789), (1, 951),
+    (2, 123), (2, 306), (2, 378),
+    (3, 456), (3, 951),
+    (4, 378),
+    (5, 302), (5, 789),
+    (6, 456), (6, 789),
+    (7, 302);
